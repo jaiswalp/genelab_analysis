@@ -31,6 +31,7 @@ Created a folder @/nfs5/BPP/Jaiswal_Lab/GeneLab_Data_Analysis/ and a subfolder f
 
 Used the following python module and script to download lists of the bam files per project ID:
 https://hackmd.io/@astrobiomike/using-genelab-utils-to-download-GLDS-data 
+Saved output to $PROJECT_Number.files
 
 Filtered the lists with: 
 grep bam *.files | awk '{print $2}' | grep Col | grep -i aligned.sorted  > Col-0.files
@@ -40,7 +41,10 @@ Created and submitted a cluster script for each project in the project folder(Wg
 #$ -cwd
 #$ -q oryza@oryza3
 
-wget -i Col-0.files -c --limit-rate=5000k # wget files in list, -c to resume and skip existing, rate limit to prevent cluster throttling
+# wget files in list, -c to resume and skip existing, rate limit to prevent cluster throttling
+wget -i Col-0.files -c --limit-rate=5000k 
+
+# rename the resulting files to remove the download tags
 for f in *.bam; do
 	mv -- "$f" "${f#download?source=datamanager&file=}"
 done
