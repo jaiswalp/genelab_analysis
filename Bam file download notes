@@ -40,7 +40,7 @@ Created and submitted a cluster script for each project in the project folder(Wg
 #$ -cwd
 #$ -q oryza@oryza3
 
-wget -i Col-0.files
+wget -i Col-0.files -c --limit-rate=5000k # wget files in list, -c to resume and skip existing, rate limit to prevent cluster throttling
 for f in *.bam; do
 	mv -- "$f" "${f#download?source=datamanager&file=}"
 done
