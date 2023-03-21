@@ -1,0 +1,17 @@
+Used the following python module and script to download lists of the bam files per project ID:
+https://hackmd.io/@astrobiomike/using-genelab-utils-to-download-GLDS-data  
+
+Example use of the download module:
+
+conda GL-download-GLDS-data -g OSD-170 --just-get-file-info-table 
+
+Filtered the lists with: 
+grep bam OSD* | awk '{print $2}' | grep Col | grep -i aligned.sorted  > Col-0.files
+
+Downloaded the resulting list of files:
+wget -i Col-0.files -c
+
+Ran this to rename the files:
+for f in *.bam; do
+    mv -- "$f" "${f#download?source=datamanager&file=}"
+done
