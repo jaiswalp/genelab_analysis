@@ -1,3 +1,5 @@
+Used the python module/instructions in BAM_DOWNLOAD to create a list and download the bam files from the web library
+
 # genelab_analysis
 files are placed in the GLDS_### directory
 expects merged bam files to be located at ./bams/merged
